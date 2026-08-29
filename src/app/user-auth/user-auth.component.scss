@@ -1,25 +1,27 @@
 .main {
-    width: 300px;
+    max-width: 380px;
+    width: 90%;
     height: auto;
     margin: 0 auto;
-    margin-top: 60px;
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: var(--fk-space-5);
+    padding: var(--fk-space-4);
+    border: 1px solid var(--fk-border);
+    border-radius: var(--fk-radius-md);
+    background-color: var(--fk-white);
+    box-shadow: var(--fk-shadow-card);
+    box-sizing: border-box;
     transition: box-shadow 0.3s ease;
 
     &:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
 }
 
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: var(--fk-space-3);
     text-align: center;
-    color: #333;
+    color: var(--fk-text-primary);
 }
 
 .example-form {
@@ -28,46 +30,47 @@ h2 {
 }
 
 .input-field {
-    margin-bottom: 15px;
+    margin-bottom: var(--fk-space-3);
 }
 
 .input-field input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid var(--fk-border);
+    border-radius: var(--fk-radius-sm);
+    box-sizing: border-box;
 }
 
 button[type="submit"] {
-    background-color: #2874F0;
+    background-color: var(--fk-blue);
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 8px;
+    border-radius: var(--fk-radius-sm);
+    padding: 10px;
     cursor: pointer;
+    font-weight: 600;
     transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-    background-color: #0f5fe0;
+    background-color: var(--fk-blue-dark);
 }
 button[type="submit"]:disabled {
-    background-color: #ccc; 
-    cursor: not-allowed; 
+    background-color: var(--fk-border);
+    color: var(--fk-text-secondary);
+    cursor: not-allowed;
 }
 a {
     display: block;
     text-align: center;
-    color: blue;
+    color: var(--fk-blue);
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: var(--fk-space-2);
     cursor: pointer;
 }
 span{
-    color: red;
+    color: #b00020;
 }
 p{
-    color: red;
+    color: #b00020;
 }
- 
-

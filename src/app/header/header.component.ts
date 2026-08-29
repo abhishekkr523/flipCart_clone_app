@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import { json } from 'express';
+import { faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ProductService } from '../services/product.service';
 import { SellerService } from '../services/seller.service';
 import { UserService } from '../services/user.service';
@@ -13,15 +14,22 @@ export class HeaderComponent implements OnInit {
   menuType: string = 'default';
   sellerName: string = "";
   searchResult: any[] | undefined;
-  userName: any;
   cartItem = 0;
+  cartIcon = faCartShopping;
+  searchIcon = faSearch;
+  userIcon = faUser;
+  private isBrowser: boolean;
 
 
-  constructor(private route: Router, private product: ProductService, private sellerService: SellerService, private userService: UserService) {
+  constructor(private route: Router, private product: ProductService, private sellerService: SellerService, private userService: UserService, @Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
     this.route.events.subscribe((val: any) => {
+      if (!this.isBrowser) {
+        return;
+      }
       if (val.url) {
         if (localStorage.getItem('seller') && val.url.includes('seller')) {
           let sellerStore = localStorage.getItem('seller');
@@ -31,7 +39,6 @@ export class HeaderComponent implements OnInit {
         } else if (localStorage.getItem('users')) {
           let userStore = localStorage.getItem('users');
           let userData = userStore ? JSON.parse(userStore) : null;
-          this.userName = userData.name;
           this.menuType = "user";
           this.product.getCartList(userData.id)
         } else {
@@ -40,6 +47,23 @@ export class HeaderComponent implements OnInit {
       }
 
     })
+
+    // Subscribe to the sign-up success event from SellerService
+    this.sellerService.signUpSuccess.subscribe(() => {
+      this.menuType = 'seller'; // Update menu type after sign-up
+    });
+
+    this.userService.signUpSuccess.subscribe(() => {
+      this.menuType = 'user'; // Update menu type after sign-up
+    });
+
+    this.product.cartData.subscribe((result) => {
+      this.cartItem = result.length;
+    })
+
+    if (!this.isBrowser) {
+      return;
+    }
 
     // Check local storage for menu type
     const menuType = localStorage.getItem('menuType');
@@ -51,31 +75,18 @@ export class HeaderComponent implements OnInit {
       this.menuType = 'default';
     }
 
-    // Subscribe to the sign-up success event from SellerService
-    this.sellerService.signUpSuccess.subscribe(() => {
-      this.menuType = 'seller'; // Update menu type after sign-up
-    });
-
-    this.userService.signUpSuccess.subscribe(() => {
-      this.menuType = 'user'; // Update menu type after sign-up
-    });
-
     let cartData = localStorage.getItem('localCart');
 
     if (cartData) {
       this.cartItem = JSON.parse(cartData).length;
     }
-
-    this.product.cartData.subscribe((result) => {
-      console.log("resulttb", result)
-      this.cartItem = result.length;
-    })
-
-
   }
 
 
   sellerLogout() {
+    if (!this.isBrowser) {
+      return;
+    }
     localStorage.removeItem('seller');
     localStorage.removeItem('menuType');
 
@@ -85,6 +96,9 @@ export class HeaderComponent implements OnInit {
   }
 
   userLogout() {
+    if (!this.isBrowser) {
+      return;
+    }
     localStorage.removeItem('users');
     localStorage.removeItem('menuType');
     this.route.navigate(['/user-auth']);

@@ -1,52 +1,94 @@
 .my-order {
-    width: 80vw;
-    margin-top: 80px;
+    width: 100%;
+    max-width: 900px;
+    margin: var(--fk-space-4) auto;
+    padding: 0 var(--fk-space-3);
+    box-sizing: border-box;
+
     h1 {
       text-align: center;
-      margin-bottom: 20px;
-      font-size: 24px;
+      margin-bottom: var(--fk-space-4);
+      font-size: var(--fk-font-lg);
     }
-  
+
     .row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-  
+      margin-bottom: var(--fk-space-2);
+      flex-wrap: wrap;
+
       &:last-child {
         margin-bottom: 0;
       }
-  
+
       .col-sm-2 {
         flex: 1;
+        min-width: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
-  
+
         span {
-          font-size: 18px;
+          font-size: var(--fk-font-base);
         }
-  
+
         button {
-          padding: 5px 10px;
-          background-color: #ff6347;
+          padding: 6px 12px;
+          background-color: #b00020;
           color: white;
           border: none;
-          border-radius: 5px;
+          border-radius: var(--fk-radius-sm);
           cursor: pointer;
           transition: background-color 0.3s ease;
-  
+
           &:hover {
-            background-color: #e74c3c;
+            background-color: #8c0019;
           }
         }
       }
     }
-  
-    .order {
-      background-color: #f9f9f9;
-      padding: 10px;
-      border-radius: 5px;
+
+    .header-row {
+      font-weight: 600;
+      color: var(--fk-text-secondary);
     }
-  }
-  
+
+    .order-data {
+      background-color: var(--fk-white);
+      border: 1px solid var(--fk-border);
+      padding: var(--fk-space-2);
+      border-radius: var(--fk-radius-md);
+    }
+
+    .status {
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: var(--fk-font-sm);
+      font-weight: 600;
+    }
+
+    .status--placed {
+      background: #fff3cd;
+      color: #7a5b00;
+    }
+
+    .status--delivered {
+      background: #e6f4ea;
+      color: var(--fk-rating-green);
+    }
+
+    .status--cancelled {
+      background: #fde8e8;
+      color: #b00020;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        gap: var(--fk-space-1);
+      }
+      .col-sm-2 {
+        min-width: 80px;
+      }
+    }
+}

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { baseurl,endpoints } from './constant';
+import { isBrowser } from '../shared/browser.util';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class UserService {
   }
 
   userAuthReload() {
-    if (localStorage.getItem('users')) {
+    if (isBrowser() && localStorage.getItem('users')) {
       this.router.navigate(['/']);
     }
   }

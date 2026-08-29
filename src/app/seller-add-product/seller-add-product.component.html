@@ -3,7 +3,7 @@
     <h4 style="color: green;">{{addProductMessage}}</h4>
     <form #addProduct="ngForm" (ngSubmit)="submit(addProduct.value)" class="example-form">
         <div class="input-field">
-            <input name="userEmail" type="hidden" [(ngModel)]="userEmail">
+            <input name="sellerEmail" type="hidden" [(ngModel)]="sellerEmail">
 
         </div>
         <div class="input-field">
@@ -31,6 +31,22 @@
             <div *ngIf="addProduct.controls['price'] && addProduct.controls['price'].errors?.['min'] && (addProduct.controls['price'].dirty || addProduct.controls['price'].touched)"
                 class="error-message">
                 <span>Price cannot be negative.</span>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <input type="number" placeholder="Enter Product MRP" ngModel name="mrp" required min="0">
+            <div *ngIf="addProduct.controls['mrp'] && addProduct.controls['mrp'].errors?.['required'] && (addProduct.controls['mrp'].dirty || addProduct.controls['mrp'].touched)"
+                class="error-message">
+                <span>MRP is required.</span>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <input type="number" placeholder="Enter Stock Quantity" ngModel name="stock" required min="0">
+            <div *ngIf="addProduct.controls['stock'] && addProduct.controls['stock'].errors?.['required'] && (addProduct.controls['stock'].dirty || addProduct.controls['stock'].touched)"
+                class="error-message">
+                <span>Stock quantity is required.</span>
             </div>
         </div>
 

@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class CartPageComponent implements OnInit {
   cartData: any[] | undefined;
+  loading = true;
   cartSummary: any = {
     price: 0,
-    diacount: 0,
+    discount: 0,
     tax: 0,
     delivery: 0,
     total: 0,
@@ -28,6 +29,10 @@ export class CartPageComponent implements OnInit {
     this.router.navigate(['/checkout'])
   }
 
+  continueShopping() {
+    this.router.navigate(['/']);
+  }
+
   removeToCart(cartId: number | undefined) {
     cartId && this.cartData && this.product.removeToCart(cartId).subscribe((result) => {
       let user = localStorage.getItem('users');
@@ -40,20 +45,15 @@ export class CartPageComponent implements OnInit {
   loadDetails() {
     this.product.currentCard().subscribe((result) => {
       this.cartData = result;
-      console.log("resulttt", result)
+      this.loading = false;
       let price = 0;
       result.forEach((item) => { price += (+item.price * item.quantity); });
       this.cartSummary.price = price;
 
-      console.log("price", this.cartSummary.price);
       this.cartSummary.discount = price / 10;
       this.cartSummary.tax = price / 20;
       this.cartSummary.delivery = price / 50;
       this.cartSummary.total = this.cartSummary.price - this.cartSummary.discount + this.cartSummary.tax + this.cartSummary.delivery;
-      console.log("cartsummary", this.cartSummary);
-      if (!this.cartData.length) {
-        this.router.navigate(['/'])
-      }
     });
   }
 

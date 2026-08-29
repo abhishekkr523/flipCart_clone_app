@@ -1,9 +1,10 @@
 <nav>
-    <a routerLink="/"><img src="./assets/logo.png" alt=""></a>
+    <a class="brand" routerLink="/"><img src="./assets/logo.png" alt="FlipCart"></a>
+
     <div *ngIf="menuType==='default' || menuType==='user'" class="search">
         <input #searchInput (keyup)="searchProduct($event)" (blur)="hideSearch()" type="text"
             placeholder="Search for product, brands and more">
-        <button (click)="submitSearch(searchInput.value)">Search</button>
+        <button (click)="submitSearch(searchInput.value)"><fa-icon [icon]="searchIcon"></fa-icon></button>
         <ul class="suggested-result" *ngIf="searchResult">
             <li *ngFor="let item of searchResult">
                 <a (mousedown)="reDirectToDetails(item.id)">
@@ -12,26 +13,26 @@
             </li>
         </ul>
     </div>
+
     <div class="menu" [ngSwitch]="menuType">
         <ul *ngSwitchCase="'default'">
-            <li routerLink="">Home</li>
-            <li routerLink="seller">Seller</li>
-            <li> <a routerLink="/user-auth"> Login/signUp</a></li>
-            <li>Cart({{cartItem}})</li>
+            <li><a routerLink="">Home</a></li>
+            <li><a routerLink="seller">Seller</a></li>
+            <li> <a routerLink="/user-auth"><fa-icon [icon]="userIcon"></fa-icon> Login/SignUp</a></li>
+            <li> <a routerLink="/cart-page" class="cart-link"><fa-icon [icon]="cartIcon"></fa-icon> Cart<span class="cart-badge" *ngIf="cartItem > 0">{{cartItem}}</span></a></li>
         </ul>
         <ul *ngSwitchCase="'user'">
-            <li routerLink="/">Home</li>
-            <li routerLink="">{{userName | titlecase}}</li>
-            <li> <a routerLink="/my-orders">My Order</a></li>
+            <li><a routerLink="/">Home</a></li>
+            <li> <a routerLink="/profile"><fa-icon [icon]="userIcon"></fa-icon> Profile</a></li>
+            <li> <a routerLink="/my-orders">My Orders</a></li>
+            <li> <a routerLink="/cart-page" class="cart-link"><fa-icon [icon]="cartIcon"></fa-icon> Cart<span class="cart-badge" *ngIf="cartItem > 0">{{cartItem}}</span></a></li>
             <li> <a (click)="userLogout()">Logout</a></li>
-            <!-- <li> <a [routerLink]="cartItem>0?'/cart-page':null">Cart({{cartItem}})</a></li> -->
-            <li> <a routerLink="/cart-page">Cart({{cartItem}})</a></li>
         </ul>
         <ul class="seller" *ngSwitchCase="'seller'">
-            <li routerLink="sellerAddProduct">Add product</li>
-            <li routerLink="seller-home">List</li>
-            <li (click)="sellerLogout()">Logout</li>
-            <li>{{sellerName | titlecase}}</li>
+            <li><a routerLink="sellerAddProduct">Add Product</a></li>
+            <li><a routerLink="seller-home">My Products</a></li>
+            <li class="user-name">{{sellerName | titlecase}}</li>
+            <li> <a (click)="sellerLogout()">Logout</a></li>
         </ul>
     </div>
 </nav>

@@ -1,14 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --fk-blue: #2874f0;
+  --fk-blue-dark: #1c5bc9;
+  --fk-yellow: #ffe11b;
+  --fk-orange: #fb641b;
+  --fk-rating-green: #388e3c;
+  --fk-text-primary: #212121;
+  --fk-text-secondary: #878787;
+  --fk-border: #e0e0e0;
+  --fk-bg: #f1f3f6;
+  --fk-white: #ffffff;
 
+  --fk-radius-sm: 2px;
+  --fk-radius-md: 4px;
+  --fk-shadow-card: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+
+  --fk-space-1: 4px;
+  --fk-space-2: 8px;
+  --fk-space-3: 16px;
+  --fk-space-4: 24px;
+  --fk-space-5: 32px;
+
+  --fk-font-sm: 12px;
+  --fk-font-base: 14px;
+  --fk-font-md: 16px;
+  --fk-font-lg: 20px;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: var(--fk-bg);
+  color: var(--fk-text-primary);
+}
+
+a { text-decoration: none; color: inherit; }
 
 .carousel-control-next-icon, .carousel-control-prev-icon{
 background-color: black;
 // border: 5px;
 }
 .carousel-caption {
-    background-color: rgba(161, 159, 159, 0.7); 
+    background-color: rgba(161, 159, 159, 0.7);
 }
 
+/* Keep Angular Material's spinner on-brand instead of the default indigo-pink theme */
+.mat-mdc-progress-spinner circle {
+  stroke: var(--fk-blue) !important;
+}

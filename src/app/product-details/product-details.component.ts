@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { emit } from 'process';
+import { Product } from '../data-type';
+import { isBrowser } from '../shared/browser.util';
 
 @Component({
   selector: 'app-product-details',
@@ -9,7 +10,7 @@ import { emit } from 'process';
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent implements OnInit {
-  productData: undefined | any;
+  productData: undefined | Product;
   productQuantity: number = 1;
   removeCart = false;
   cartData: any | undefined
@@ -22,24 +23,15 @@ export class ProductDetailsComponent implements OnInit {
     productId && this.product.getProduct(productId).subscribe((result) => {
       this.productData = result;
 
-      let cartData = localStorage.getItem('localCart');
-      if (productId && cartData) {
-        let items = JSON.parse(cartData);
-        items = items.filter((item: any) => productId == item.id.toString());
-        if (items.length) {
-
-          this.removeCart = false;
-        } else {
-          this.removeCart = false;
-        }
+      if (!isBrowser()) {
+        return;
       }
       let user = localStorage.getItem('users');
       if (user) {
         let userId = user && JSON.parse(user).id;
         this.product.getCartList(userId);
         this.product.cartData.subscribe((result) => {
-          let item = result.filter((item: any) => item && productId && item.id && item.producId && productId === item.id.toString() && item.producId.toString());
-
+          let item = result.filter((item: any) => item && productId && item.productId === productId);
 
           if (item.length) {
             this.cartData = item[0]
@@ -60,27 +52,8 @@ export class ProductDetailsComponent implements OnInit {
   }
   addToCart() {
     if (this.productData) {
-      this.productData.quantity = this.productQuantity;
-      if (!localStorage.getItem('users')) {
-        this.product.localAddToCart(this.productData);
-        this.removeCart = false;
-        
-      } else {
-        console.log("user is log in");
-        let user = localStorage.getItem('users');
-        let userId = user && JSON.parse(user).id;
-        let cartData: any = { ...this.productData, userId, productId: this.productData.id, }
-        delete cartData.id;
-        this.product.addToCart(cartData).subscribe((result) => {
-          if (result) {
-            this.product.getCartList(userId);
-            this.removeCart = false
-            alert("Product is added to cart");
-          }
-        })
-        
-      }
-
+      this.product.addProductToCart(this.productData, this.productQuantity);
+      this.removeCart = false;
     }
   }
 
@@ -94,7 +67,6 @@ export class ProductDetailsComponent implements OnInit {
         let user = localStorage.getItem('users');
         let userId = user && JSON.parse(user).id;
         this.product.getCartList(userId);
-        this.cartData.emit(user);
       })
       this.removeCart = false;
       

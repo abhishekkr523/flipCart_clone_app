@@ -1,0 +1,13 @@
+<div class="info-page">
+    <div class="info-card">
+        <h1>{{ title }}</h1>
+
+        <p *ngFor="let para of paragraphs">{{ para }}</p>
+
+        <ul class="link-list" *ngIf="links.length">
+            <li *ngFor="let link of links">
+                <a [routerLink]="link.routerLink">{{ link.label }}</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -2,10 +2,10 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { login, signUp } from '../data-type';
 import { BehaviorSubject } from 'rxjs';
-import { json } from 'stream/consumers';
 import { Router } from '@angular/router';
 import { baseurl } from './constant';
 import { endpoints } from './constant';
+import { isBrowser } from '../shared/browser.util';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +26,7 @@ export class SellerService {
       if(result && result.body && result.body.length){
         
         this.signUpFail.emit();
-      this.router.navigate(['seller-auth'],)
+      this.router.navigate(['seller'],)
       }else{
         this.http.post(`${baseurl}${endpoints.seller}`, data, { observe: 'response' }).subscribe((result) => {
       this.isSellerLoggedIn.next(true);
@@ -40,7 +40,7 @@ export class SellerService {
   }
 
   reloadSeller(){
-    if(localStorage.getItem('seller')){
+    if(isBrowser() && localStorage.getItem('seller')){
       this.isSellerLoggedIn.next(true);
       this.router.navigate(['seller-home'],)
     }

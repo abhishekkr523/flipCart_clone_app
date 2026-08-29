@@ -1,0 +1,28 @@
+<a class="product-card" *ngIf="product" [routerLink]="['/product-details', product.id]">
+  <div class="product-card__image">
+    <img [src]="product.url" [alt]="product.name">
+  </div>
+  <div class="product-card__body">
+    <h3 class="product-card__name">{{ product.name }}</h3>
+
+    <span class="product-card__rating" *ngIf="product.rating">
+      {{ product.rating }} ★
+      <span class="product-card__rating-count" *ngIf="product.ratingCount">({{ product.ratingCount }})</span>
+    </span>
+
+    <div class="product-card__price">
+      <span class="product-card__price-current">₹{{ product.price }}</span>
+      <span class="product-card__price-mrp" *ngIf="product.mrp > product.price">₹{{ product.mrp }}</span>
+      <span class="product-card__price-discount" *ngIf="discountPercent > 0">{{ discountPercent }}% off</span>
+    </div>
+
+    <span class="product-card__stock" *ngIf="product.stock === 0">Out of stock</span>
+
+    <button
+      class="product-card__add-btn"
+      *ngIf="showAddToCart && product.stock !== 0"
+      (click)="onAddToCart($event)">
+      Add to Cart
+    </button>
+  </div>
+</a>

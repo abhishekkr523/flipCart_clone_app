@@ -30,15 +30,24 @@ export class CheckoutComponent implements OnInit {
     if (this.totalPrice) {
       let orderData: any = {
         ...data,
-        totalPrice: this.totalPrice, userId
+        totalPrice: this.totalPrice,
+        userId,
+        status: 'Placed',
+        placedAt: new Date().toISOString(),
+        items: (this.cartData || []).map((item: any) => ({
+          productId: item.productId,
+          name: item.name,
+          url: item.url,
+          price: item.price,
+          quantity: item.quantity,
+          color: item.color
+        }))
       }
-      this.cartData?.forEach((item: any) => {
-        setTimeout(() => {
-          item.id && this.product.deleteCartItems(item.id)
-        }, 700);
-      })
       this.product.order(orderData).subscribe((result) => {
         if (result) {
+          this.cartData?.forEach((item: any) => {
+            item.id && this.product.deleteCartItems(item.id);
+          });
           this.ordersms = "your order has been placed"
           setTimeout(() => {
             this.route.navigate(['my-orders'])

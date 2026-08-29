@@ -1,0 +1,16 @@
+<div class="profile-page" *ngIf="userData">
+    <div class="profile-card">
+        <div class="avatar">{{ userData.name?.charAt(0) | uppercase }}</div>
+        <h2>{{ userData.name | titlecase }}</h2>
+
+        <div class="profile-field">
+            <span class="label">Email</span>
+            <span class="value">{{ userData.email }}</span>
+        </div>
+
+        <div class="profile-links">
+            <a routerLink="/my-orders">My Orders</a>
+            <a routerLink="/cart-page">My Cart</a>
+        </div>
+    </div>
+</div>

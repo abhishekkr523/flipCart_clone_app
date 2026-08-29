@@ -14,7 +14,6 @@ export class SellersAuthComponent implements OnInit {
 
   constructor(private seller: SellerService, private router: Router) {
   }
-  dat: any
   ngOnInit(): void {
     this.seller.reloadSeller();
     // Subscribe to the sign-up success event

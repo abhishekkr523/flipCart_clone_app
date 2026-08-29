@@ -1,24 +1,40 @@
 <div class="container" *ngIf="productData">
     <div class="product-item">
-            <img [src]="productData.url" alt="">
+        <div class="product-image">
+            <img [src]="productData.url" [alt]="productData.name">
+        </div>
 
         <div class="product-details">
-                <h6 class="name-head">{{productData.name}}</h6>
-            <h6 style="color: black; font-size: 20px;">Price:{{productData.price}}</h6>
+            <h4 class="name-head">{{productData.name}}</h4>
+
+            <span class="rating" *ngIf="productData.rating">
+                {{productData.rating}} ★
+                <span class="rating-count" *ngIf="productData.ratingCount">({{productData.ratingCount}} ratings)</span>
+            </span>
+
+            <div class="price-row">
+                <span class="price-current">₹{{productData.price}}</span>
+                <span class="price-mrp" *ngIf="productData.mrp > productData.price">₹{{productData.mrp}}</span>
+            </div>
+
             <div class="color">
-                <h6>Color: </h6>
+                <h6>Color:</h6>
                 <h6 class="circle" [style.backgroundColor]="productData.color"></h6>
             </div>
-            <h6>Category:{{productData.category}}</h6>
-            <h6>{{productData.description}}</h6>
-            <div class="action">
-                <button *ngIf="!removeCart" (click)="addToCart()">Add to Cart</button>
-                <!-- <button *ngIf="removeCart" (click)="removeToCart(productData.id)">Remove to Cart</button> -->
-            </div>
+            <h6>Category: {{productData.category}}</h6>
+            <p class="description">{{productData.description}}</p>
+
+            <p class="stock" *ngIf="productData.stock === 0">Out of stock</p>
+
             <div class="quantity-group">
                 <button (click)="handelQuantity('minus')">-</button>
-                <input style="text-align: center;" type="text" value="{{productQuantity}}">
+                <input style="text-align: center;" type="text" value="{{productQuantity}}" readonly>
                 <button (click)="handelQuantity('plus')">+</button>
+            </div>
+
+            <div class="action">
+                <button class="add-btn" *ngIf="!removeCart && productData.stock !== 0" (click)="addToCart()">Add to Cart</button>
+                <button class="remove-btn" *ngIf="removeCart" (click)="removeToCart(productData.id)">Remove from Cart</button>
             </div>
         </div>
     </div>

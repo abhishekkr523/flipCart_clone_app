@@ -1,51 +1,63 @@
 <div class="cart-page">
-    <h1>Cart Page</h1>
-    <div class="col-sm-6 details">
-        <ul *ngFor="let cart of cartData">
-            <li>
-                <img [src]="cart.url" alt="">
-            </li>
-            <div class="about">
+    <h1>My Cart</h1>
+
+    <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+    <app-empty-state
+        *ngIf="!loading && cartData?.length === 0"
+        message="Your cart is empty."
+        actionLabel="Continue Shopping"
+        (action)="continueShopping()">
+    </app-empty-state>
+
+    <ng-container *ngIf="!loading && cartData?.length">
+        <div class="col-sm-6 details">
+            <ul *ngFor="let cart of cartData">
                 <li>
-                    <span>
-                        Name:{{cart.name}}
-                    </span>
-                <li><span>Price:{{cart.price}}</span></li>
-                <li><span> Quantity:{{cart.quantity}}</span></li>
-                <li>
-                    <button class="form-button" (click)="removeToCart(cart.id)">Remove to cart</button>
+                    <img [src]="cart.url" alt="">
                 </li>
-            </div>
-        </ul>
+                <div class="about">
+                    <li>
+                        <span>
+                            Name:{{cart.name}}
+                        </span>
+                    <li><span>Price:{{cart.price}}</span></li>
+                    <li><span> Quantity:{{cart.quantity}}</span></li>
+                    <li>
+                        <button class="form-button" (click)="removeToCart(cart.id)">Remove from Cart</button>
+                    </li>
+                </div>
+            </ul>
 
-    </div>
-    <div class="col-sm-4 summery">
-        <h3>Summary</h3>
-        <ul>
-            <li>
-                <span>Amount</span><span>{{cartSummary.price}}</span>
-            </li>
-            <li>
-                <span>Tax</span><span>{{cartSummary.tax}}</span>
-            </li>
-            <li>
-                <span>Delivery</span><span>{{cartSummary.delivery}}</span>
-            </li>
-            <li>
-                <span>discount</span><span>{{cartSummary.discount}}</span>
-            </li>
-            <li>
-                <span>
-                    <h4>Total</h4>
-                </span>
-                <span>
-                    <h4>{{cartSummary.total}}</h4>
-                </span>
+        </div>
+        <div class="col-sm-4 summery">
+            <h3>Price Details</h3>
+            <ul>
+                <li>
+                    <span>Amount</span><span>₹{{cartSummary.price}}</span>
+                </li>
+                <li>
+                    <span>Tax</span><span>₹{{cartSummary.tax}}</span>
+                </li>
+                <li>
+                    <span>Delivery</span><span>₹{{cartSummary.delivery}}</span>
+                </li>
+                <li>
+                    <span>Discount</span><span>-₹{{cartSummary.discount}}</span>
+                </li>
+                <li class="total-row">
+                    <span>
+                        <h4>Total</h4>
+                    </span>
+                    <span>
+                        <h4>₹{{cartSummary.total}}</h4>
+                    </span>
 
-            </li>
-            <li style="display: flex; align-items: center; justify-content: center;">
-                <button class="form-button" (click)="checkout()">Checkout</button>
-            </li>
-        </ul>
-    </div>
+                </li>
+                <li class="checkout-row">
+                    <button class="form-button checkout-button" (click)="checkout()">Place Order</button>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
 </div>

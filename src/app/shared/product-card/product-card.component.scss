@@ -1,0 +1,113 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--fk-white);
+  border: 1px solid var(--fk-border);
+  border-radius: var(--fk-radius-md);
+  box-shadow: var(--fk-shadow-card);
+  overflow: hidden;
+  height: 100%;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.product-card__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fk-space-3);
+  background: var(--fk-white);
+
+  img {
+    max-width: 100%;
+    height: 160px;
+    object-fit: contain;
+  }
+}
+
+.product-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fk-space-1);
+  padding: 0 var(--fk-space-3) var(--fk-space-3);
+}
+
+.product-card__name {
+  margin: 0;
+  font-size: var(--fk-font-base);
+  font-weight: 400;
+  color: var(--fk-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-card__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  background: var(--fk-rating-green);
+  color: var(--fk-white);
+  font-size: var(--fk-font-sm);
+  padding: 1px 6px;
+  border-radius: var(--fk-radius-sm);
+}
+
+.product-card__rating-count {
+  color: var(--fk-white);
+  opacity: 0.85;
+}
+
+.product-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--fk-space-2);
+  flex-wrap: wrap;
+}
+
+.product-card__price-current {
+  font-size: var(--fk-font-md);
+  font-weight: 600;
+  color: var(--fk-text-primary);
+}
+
+.product-card__price-mrp {
+  font-size: var(--fk-font-sm);
+  color: var(--fk-text-secondary);
+  text-decoration: line-through;
+}
+
+.product-card__price-discount {
+  font-size: var(--fk-font-sm);
+  color: #388e3c;
+  font-weight: 600;
+}
+
+.product-card__stock {
+  font-size: var(--fk-font-sm);
+  color: #b00020;
+  font-weight: 600;
+}
+
+.product-card__add-btn {
+  margin-top: var(--fk-space-2);
+  padding: var(--fk-space-2) var(--fk-space-3);
+  background: var(--fk-yellow);
+  color: var(--fk-text-primary);
+  border: none;
+  border-radius: var(--fk-radius-sm);
+  font-weight: 600;
+  font-size: var(--fk-font-sm);
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}

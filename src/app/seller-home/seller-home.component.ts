@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { faTrash, faUserPen } from '@fortawesome/free-solid-svg-icons';
 import { SellerService } from '../services/seller.service';
+import { isBrowser } from '../shared/browser.util';
 
 @Component({
   selector: 'app-seller-home',
@@ -14,8 +16,12 @@ export class SellerHomeComponent implements OnInit {
   icon1 = faTrash;
   icon2 = faUserPen;
 
-  constructor(private product: ProductService, private sellerService: SellerService) {
+  constructor(private product: ProductService, private sellerService: SellerService, private router: Router) {
 
+  }
+
+  goToAddProduct() {
+    this.router.navigate(['/sellerAddProduct']);
   }
   ngOnInit(): void {
     this.list();
@@ -37,6 +43,9 @@ export class SellerHomeComponent implements OnInit {
   }
 
   list() {
+    if (!isBrowser()) {
+      return;
+    }
     const data = localStorage.getItem('seller');
     if (data) {
       const sellerData = JSON.parse(data);

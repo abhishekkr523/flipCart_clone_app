@@ -1,12 +1,22 @@
 <div class="product-list">
-    <h1></h1>
-    <h4 style="color: green;">{{productMessage}}</h4>
-    <table>
+    <h1>My Products</h1>
+    <h4 class="product-message" *ngIf="productMessage">{{productMessage}}</h4>
+
+    <app-empty-state
+        *ngIf="productList && productList.length === 0"
+        message="You haven't added any products yet."
+        actionLabel="Add Product"
+        (action)="goToAddProduct()">
+    </app-empty-state>
+
+    <table *ngIf="productList && productList.length">
         <thead>
             <tr>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
+                <th>MRP</th>
+                <th>Stock</th>
                 <th>Color</th>
                 <th>Category</th>
                 <th>Description</th>
@@ -17,13 +27,15 @@
             <tr *ngFor="let item of productList">
                 <td><img src="{{item.url}}" alt="" style="width: 100px; height: 100px;" /></td>
                 <td>{{item.name}}</td>
-                <td>{{item.price}}</td>
+                <td>₹{{item.price}}</td>
+                <td>₹{{item.mrp}}</td>
+                <td>{{item.stock}}</td>
                 <td>{{item.color}}</td>
                 <td>{{item.category}}</td>
                 <td>{{item.description}}</td>
-                <td>
-                    <fa-icon [icon]="icon1" (click)="deleteProduct(item.id)" style="padding: 4px;"></fa-icon>
-                    <a routerLink="../seller-update-product/{{item.id}}" style="padding: 4px;"><fa-icon [icon]="icon2"></fa-icon></a>
+                <td class="actions">
+                    <fa-icon [icon]="icon1" (click)="deleteProduct(item.id)" title="Delete"></fa-icon>
+                    <a routerLink="../seller-update-product/{{item.id}}" title="Edit"><fa-icon [icon]="icon2"></fa-icon></a>
                 </td>
             </tr>
 

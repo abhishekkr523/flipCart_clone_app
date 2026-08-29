@@ -2,71 +2,87 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: var(--fk-space-4);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    color: #333;
+    font-size: var(--fk-font-lg);
+    margin-bottom: var(--fk-space-2);
+    margin-top: var(--fk-space-2);
+    color: var(--fk-text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  .order-toast {
+    width: 100%;
+    background-color: #e6f4ea;
+    color: var(--fk-rating-green);
+    border: 1px solid var(--fk-rating-green);
+    border-radius: var(--fk-radius-md);
+    padding: var(--fk-space-3);
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: var(--fk-space-3);
+  }
+
   .main {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background-color: var(--fk-white);
+    padding: var(--fk-space-4);
+    border-radius: var(--fk-radius-md);
+    box-shadow: var(--fk-shadow-card);
+    box-sizing: border-box;
 
     h2 {
-      font-size: 24px;
-      margin-bottom: 15px;
-      color: #333;
+      font-size: var(--fk-font-md);
+      margin-bottom: var(--fk-space-3);
+      color: var(--fk-text-primary);
     }
 
     .input-field {
-      margin-bottom: 15px;
+      margin-bottom: var(--fk-space-3);
 
-      input {
+      input, textarea {
         width: 100%;
         padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        border: 1px solid var(--fk-border);
+        border-radius: var(--fk-radius-sm);
         outline: none;
+        box-sizing: border-box;
 
         &::placeholder {
-          color: #999;
+          color: var(--fk-text-secondary);
         }
       }
 
       span {
-        color: red;
+        color: #b00020;
       }
     }
 
     button {
       width: 100%;
       padding: 10px;
-      background-color: #007bff;
+      background-color: var(--fk-orange);
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: var(--fk-radius-sm);
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-weight: 600;
+      transition: filter 0.2s ease;
 
       &:hover {
-        background-color: #0056b3;
+        filter: brightness(0.95);
       }
     }
     button[type="submit"]:disabled {
-      background-color: #ccc;
+      background-color: var(--fk-border);
+      color: var(--fk-text-secondary);
       cursor: not-allowed;
     }
   }

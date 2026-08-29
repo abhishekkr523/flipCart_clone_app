@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { forkJoin, of } from 'rxjs';
 import { baseurl,endpoints } from './constant';
+import { OrderStatus, Product } from '../data-type';
+import { isBrowser } from '../shared/browser.util';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +20,10 @@ export class ProductService {
 
 
   productList(data:any) {
-    return this.http.get<any>(`${baseurl}${endpoints.addProduct}?userEmail=${data.email}`);
+    return this.http.get<any>(`${baseurl}${endpoints.addProduct}?sellerEmail=${data.email}`);
   }
   onSignUpProductList(data:any) {
-    return this.http.get<any>(`${baseurl}${endpoints.addProduct}?userEmail=${data.email}`);
+    return this.http.get<any>(`${baseurl}${endpoints.addProduct}?sellerEmail=${data.email}`);
   }
 
 
@@ -36,11 +39,11 @@ export class ProductService {
   popularProduct() {
     return this.http.get<any>(`${baseurl}${endpoints.addProduct}?_limit=3`);
   }
-  trendyProduct(param:string) {
-    return this.http.get<any>(`${baseurl}${endpoints.addProduct}${param}`);
+  trendyProduct(limit: number) {
+    return this.http.get<any>(`${baseurl}${endpoints.addProduct}?_limit=${limit}`);
   }
   searchProduct(query: string) {
-    return this.http.get<any[]>(`${baseurl}${endpoints.addProduct}?name=${query}`);
+    return this.http.get<any[]>(`${baseurl}${endpoints.addProduct}?name_like=${query}`);
   }
   localAddToCart(data: any) {
     let cartData = [];
@@ -67,11 +70,49 @@ export class ProductService {
     }
   }
 
+  addProductToCart(product: Product, quantity: number): void {
+    const item: any = { ...product, quantity };
+    if (!localStorage.getItem('users')) {
+      this.localAddToCart(item);
+      return;
+    }
+    const userStore = localStorage.getItem('users');
+    const userId = userStore && JSON.parse(userStore).id;
+    const cartData: any = { ...item, userId, productId: product.id };
+    delete cartData.id;
+    this.addToCart(cartData).subscribe((result) => {
+      if (result) {
+        this.getCartList(userId);
+      }
+    });
+  }
+
+  mergeLocalCartToRemote(userId: string): void {
+    const localCartRaw = localStorage.getItem('localCart');
+    if (!localCartRaw) {
+      return;
+    }
+    const items: any[] = JSON.parse(localCartRaw);
+    if (!items.length) {
+      localStorage.removeItem('localCart');
+      return;
+    }
+    const requests = items.map((item) => {
+      const cartData = { ...item, userId, productId: item.id };
+      delete cartData.id;
+      return this.addToCart(cartData);
+    });
+    forkJoin(requests).subscribe(() => {
+      localStorage.removeItem('localCart');
+      this.getCartList(userId);
+    });
+  }
+
   addToCart(cartData: any) {
     return this.http.post(`${baseurl}${endpoints.cart}`, cartData);
   }
 
-  getCartList(userId: number) {
+  getCartList(userId: string) {
     return this.http.get<any[]>(`${baseurl}${endpoints.cart}?userId=` + userId,
       { observe: 'response' }).subscribe((result) => {
         if (result && result.body) {
@@ -85,6 +126,9 @@ export class ProductService {
     return this.http.delete(`${baseurl}${endpoints.cart}/` + cartId);
   }
   currentCard() {
+    if (!isBrowser()) {
+      return of([]);
+    }
     let userStore = localStorage.getItem('users');
     let userData = userStore && JSON.parse(userStore);
     return this.http.get<any[]>(`${baseurl}${endpoints.cart}?userId=` + userData.id)
@@ -93,6 +137,9 @@ export class ProductService {
     return this.http.post<any>(`${baseurl}${endpoints.order}`, data)
   }
   orderList() {
+    if (!isBrowser()) {
+      return of([]);
+    }
     let userStore = localStorage.getItem('users');
     let userData = userStore && JSON.parse(userStore);
     return this.http.get<any>(`${baseurl}${endpoints.order}?userId=` + userData.id)
@@ -106,5 +153,8 @@ export class ProductService {
   }
   cancelOrder(orderId:number){
     return this.http.delete(`${baseurl}${endpoints.order}/`+orderId)
+  }
+  updateOrderStatus(orderId: string, status: OrderStatus) {
+    return this.http.patch(`${baseurl}${endpoints.order}/${orderId}`, { status });
   }
 }

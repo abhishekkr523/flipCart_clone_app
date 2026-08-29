@@ -1,31 +1,37 @@
 .product-list {
-    
-    width: 100vw;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    // margin-top: -250px;
-    // max-width: 100%;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--fk-space-4);
+    box-sizing: border-box;
     overflow-x: auto; /* Add horizontal scroll for smaller screens */
+
+    h1 {
+        font-size: var(--fk-font-lg);
+        margin-bottom: var(--fk-space-2);
+    }
+
+    .product-message {
+        color: var(--fk-rating-green);
+    }
 }
 
 table {
     width: 100%;
+    min-width: 700px;
     border-collapse: collapse;
+    background: var(--fk-white);
 }
 
 th, td {
-    padding: 8px;
+    padding: var(--fk-space-2);
     text-align: left;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--fk-border);
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: var(--fk-bg);
+    color: var(--fk-text-secondary);
 }
 
 img {
@@ -33,13 +39,24 @@ img {
     height: auto;
 }
 
-@media screen and (max-width: 600px) {
-    table {
-        font-size: 12px; 
-    }
+.actions {
+    display: flex;
+    gap: var(--fk-space-2);
+    align-items: center;
 
-    img {
-        max-width: 60px; 
+    fa-icon, a {
+        cursor: pointer;
+        color: var(--fk-blue);
+        padding: 4px;
     }
 }
 
+@media screen and (max-width: 600px) {
+    table {
+        font-size: var(--fk-font-sm);
+    }
+
+    img {
+        max-width: 60px;
+    }
+}
