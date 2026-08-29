@@ -1,27 +1,65 @@
-# ECommerceApp
+# 🛒 Flipkart Clone
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+A responsive e-commerce web application inspired by Flipkart, built using Angular. The project demonstrates product listing, product details, cart management, and API integration using JSON Server.
 
-## Development server
+## 📌 About the Project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project is a frontend clone of an e-commerce platform inspired by Flipkart.
 
-## Code scaffolding
+The main objective of this project was to practice building a real-world e-commerce application using Angular, including component-based architecture, routing, services, RxJS, API integration, and cart functionality.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+A JSON Server backend is used to provide mock REST APIs for product data.
 
-## Build
+## ✨ Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- 🏠 Responsive home page
+- 🛍️ Product listing
+- 🔍 Product search
+- 📂 Product/category filtering
+- 📄 Product details page
+- 🛒 Add products to cart
+- ➕ Increase/decrease product quantity
+- ❌ Remove products from cart
+- 💰 Automatic cart price calculation
+- 🔄 API integration using Angular HttpClient
+- 📱 Responsive design
+- ⚡ Reactive programming using RxJS
+- 🌐 Mock REST API using JSON Server
 
-## Running unit tests
+## 🛠️ Technologies Used
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Angular
+- TypeScript
+- JavaScript
+- HTML5
+- CSS3
+- Bootstrap
+- RxJS
+- JSON Server
+- Git & GitHub
 
-## Running end-to-end tests
+## 📂 Project Structure
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```text
+flipCart_clone_app/
+│
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── models/
+│   │   └── ...
+│   │
+│   ├── assets/
+│   └── ...
+│
+├── db.json
+├── package.json
+├── angular.json
+└── README.md
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![Uploading image.png…]()
+<img width="1887" height="867" alt="image" src="https://github.com/user-attachments/assets/b9327758-d9cc-44c5-868e-ebf0ebb6e908" />
+<img width="1896" height="872" alt="image" src="https://github.com/user-attachments/assets/67407a36-5f9d-4af5-8662-2a14b535958c" />
+<img width="1887" height="875" alt="image" src="https://github.com/user-attachments/assets/647aa991-3563-4746-8aa6-8b2813435e8b" />
+<img width="1892" height="875" alt="image" src="https://github.com/user-attachments/assets/e4d60af9-dec8-4ccb-9aae-942f9c6a5358" />
