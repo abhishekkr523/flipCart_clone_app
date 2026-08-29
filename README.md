@@ -67,8 +67,3 @@ flipCart_clone_app/
 ├── angular.json
 └── README.md
 
-
-<img width="1887" height="867" alt="image" src="https://github.com/user-attachments/assets/b9327758-d9cc-44c5-868e-ebf0ebb6e908" />
-<img width="1896" height="872" alt="image" src="https://github.com/user-attachments/assets/67407a36-5f9d-4af5-8662-2a14b535958c" />
-<img width="1887" height="875" alt="image" src="https://github.com/user-attachments/assets/647aa991-3563-4746-8aa6-8b2813435e8b" />
-<img width="1892" height="875" alt="image" src="https://github.com/user-attachments/assets/e4d60af9-dec8-4ccb-9aae-942f9c6a5358" />
